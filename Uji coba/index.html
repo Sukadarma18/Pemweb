@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarbonCheck - Kalkulator Jejak Karbon</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav id="navbar" class="navbar">
+        <div class="container nav-container">
+            <div class="logo" onclick="scrollToTop()">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                    <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                <span class="logo-text">CarbonCheck</span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="nav-menu desktop-menu">
+                <button onclick="scrollToTop()" class="nav-link">Beranda</button>
+                <button onclick="scrollToSection('calculator')" class="nav-link">Hitung Jejak</button>
+                <button onclick="scrollToSection('education')" class="nav-link">Edukasi Energi</button>
+                <button onclick="scrollToSection('about')" class="nav-link">Tentang</button>
+                <button onclick="scrollToSection('calculator')" class="btn-primary">Mulai Sekarang</button>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-toggle" id="mobileToggle">
+                <svg id="menuIcon" class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+                <svg id="closeIcon" class="menu-icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu hidden">
+            <button onclick="scrollToTop(); closeMobileMenu()">Beranda</button>
+            <button onclick="scrollToSection('calculator'); closeMobileMenu()">Hitung Jejak</button>
+            <button onclick="scrollToSection('education'); closeMobileMenu()">Edukasi Energi</button>
+            <button onclick="scrollToSection('about'); closeMobileMenu()">Tentang</button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-bg-shape shape-1"></div>
+        <div class="hero-bg-shape shape-2"></div>
+
+        <div class="container hero-container">
+            <div class="hero-content">
+                <span class="hero-badge">🌱 Peduli Bumi Kita</span>
+                <h1 class="hero-title">
+                    Hitung Jejak Karbon<br>
+                    <span class="text-gradient">Harian Anda</span>
+                </h1>
+                <p class="hero-description">
+                    Pahami dampak aktivitas sehari-hari Anda terhadap lingkungan. Langkah kecil untuk perubahan besar
+                    menuju masa depan energi bersih.
+                </p>
+                <div class="hero-buttons">
+                    <button onclick="scrollToSection('calculator')" class="btn-primary btn-lg">
+                        Mulai Hitung
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                            <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                    </button>
+                    <button onclick="scrollToSection('education')" class="btn-secondary btn-lg">
+                        Pelajari Lebih Lanjut
+                    </button>
+                </div>
+            </div>
+
+            <div class="hero-illustration">
+                <div class="illustration-bg">
+                    <div class="pulse-circle circle-1"></div>
+                    <div class="pulse-circle circle-2"></div>
+                </div>
+                <div class="illustration-card">
+                    <svg class="illustration-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                    <h3>Energi Bersih</h3>
+                    <p>Mulai dari kebiasaan kecil di rumah Anda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALCULATOR SECTION -->
+    <section id="calculator" class="calculator-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Kalkulator Jejak Karbon</h2>
+                <p class="section-description">Isi form di bawah ini berdasarkan aktivitas rata-rata harian Anda untuk
+                    mendapatkan estimasi emisi karbon.</p>
+            </div>
+
+            <div class="calculator-grid">
+                <!-- Form -->
+                <div class="calculator-form">
+                    <form id="carbonForm">
+                        <!-- Transportasi -->
+                        <div class="form-section">
+                            <div class="form-section-header">
+                                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M5 17h-2v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0a2 2 0 1 1-4 0m-4 0a2 2 0 1 1-4 0" />
+                                </svg>
+                                <h3>Transportasi</h3>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Jenis Kendaraan</label>
+                                    <select id="transportType" required>
+                                        <option value="motor">Sepeda Motor</option>
+                                        <option value="mobil">Mobil Pribadi</option>
+                                        <option value="umum">Transportasi Umum</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Jarak Harian (km)</label>
+                                    <input type="number" id="distance" placeholder="Contoh: 15" min="0" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="form-divider">
+
+                        <!-- Listrik -->
+                        <div class="form-section">
+                            <div class="form-section-header">
+                                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                                </svg>
+                                <h3>Listrik Rumah</h3>
+                            </div>
+                            <div class="form-group">
+                                <label>Pemakaian per Bulan (kWh)</label>
+                                <input type="number" id="electricity" placeholder="Lihat tagihan listrik Anda..."
+                                    min="0" required>
+                            </div>
+                        </div>
+
+                        <hr class="form-divider">
+
+                        <!-- Makanan -->
+                        <div class="form-section">
+                            <div class="form-section-header">
+                                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2" />
+                                </svg>
+                                <h3>Pola Konsumsi</h3>
+                            </div>
+                            <div class="form-group">
+                                <label>Frekuensi Makan Daging (per minggu)</label>
+                                <div class="button-group">
+                                    <button type="button" class="btn-option active" data-value="jarang"
+                                        onclick="selectMeatFreq('jarang')">Jarang</button>
+                                    <button type="button" class="btn-option" data-value="sedang"
+                                        onclick="selectMeatFreq('sedang')">Sedang</button>
+                                    <button type="button" class="btn-option" data-value="sering"
+                                        onclick="selectMeatFreq('sering')">Sering</button>
+                                </div>
+                                <p class="form-hint" id="meatFreqHint">1-2 kali/minggu</p>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit" id="submitBtn">
+                            <span id="submitText">Hitung Jejak Karbon</span>
+                            <span id="loadingSpinner" class="spinner hidden"></span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Result -->
+                <div class="calculator-result">
+                    <div id="resultPlaceholder" class="result-placeholder">
+                        <div class="placeholder-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                            </svg>
+                        </div>
+                        <p>Hasil perhitungan akan muncul di sini.</p>
+                    </div>
+
+                    <div id="resultCard" class="result-card hidden">
+                        <div id="resultHeader" class="result-header">
+                            <h3>Estimasi Emisi Harian</h3>
+                            <div class="result-score">
+                                <span id="resultScore">0</span>
+                                <span class="result-unit">kgCO2e</span>
+                            </div>
+                            <span id="resultCategory" class="result-badge">Kategori: Rendah</span>
+                        </div>
+
+                        <div class="result-body">
+                            <h4 class="result-tips-title">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22 4 12 14.01 9 11.01" />
+                                </svg>
+                                Rekomendasi Untuk Anda
+                            </h4>
+                            <ul id="resultTips" class="result-tips-list"></ul>
+
+                            <button onclick="resetCalculator()" class="btn-reset">Hitung Ulang</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education" class="education-section">
+        <div class="container">
+            <div class="education-header">
+                <div>
+                    <h2 class="section-title">Edukasi Energi</h2>
+                    <p class="section-description">Pahami lebih dalam mengapa jejak karbon penting bagi masa depan bumi
+                        kita.</p>
+                </div>
+            </div>
+
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="card-icon icon-blue">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="16" x2="12" y2="12" />
+                            <line x1="12" y1="8" x2="12.01" y2="8" />
+                        </svg>
+                    </div>
+                    <h3>Apa itu Jejak Karbon?</h3>
+                    <p>Total emisi gas rumah kaca yang dihasilkan oleh individu, peristiwa, organisasi, atau produk,
+                        dinyatakan dalam karbon dioksida ekuivalen.</p>
+                </div>
+
+                <div class="education-card">
+                    <div class="card-icon icon-red">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2" />
+                        </svg>
+                    </div>
+                    <h3>Penyumbang Terbesar</h3>
+                    <p>Pembakaran bahan bakar fosil untuk listrik, panas, dan transportasi adalah sumber utama emisi gas
+                        rumah kaca global.</p>
+                </div>
+
+                <div class="education-card">
+                    <div class="card-icon icon-green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                        </svg>
+                    </div>
+                    <h3>Solusi Sederhana</h3>
+                    <p>Gunakan transportasi umum, kurangi konsumsi daging, dan matikan perangkat elektronik saat tidak
+                        digunakan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about-section">
+        <div class="container about-container">
+            <h2 class="section-title">Tentang CarbonCheck</h2>
+            <p class="about-description">
+                Kami berdedikasi untuk meningkatkan kesadaran tentang dampak lingkungan dari aktivitas sehari-hari.
+                Misi kami adalah memberdayakan setiap individu dengan data untuk membuat keputusan yang lebih hijau demi
+                bumi yang lebih sehat.
+            </p>
+            <div class="about-tags">
+                <span class="tag">Tim GreenTech Indonesia</span>
+                <span class="tag">Project #SaveEarth</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                    <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+                <span>CarbonCheck</span>
+            </div>
+            <div class="footer-copyright">
+                © <span id="currentYear"></span> CarbonCheck. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- CHATBOT -->
+    <div class="chatbot-container">
+        <div id="chatWindow" class="chat-window hidden">
+            <div class="chat-header">
+                <div class="chat-status">
+                    <div class="status-dot"></div>
+                    <span>Asisten Energi</span>
+                </div>
+                <button onclick="toggleChat()" class="chat-close-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+
+            <div id="chatMessages" class="chat-messages">
+                <div class="chat-message bot-message">
+                    <div class="message-bubble">
+                        Halo! Saya Asisten Energi. Ada yang bisa saya bantu terkait jejak karbon hari ini?
+                    </div>
+                </div>
+            </div>
+
+            <form id="chatForm" class="chat-input-form">
+                <input type="text" id="chatInput" placeholder="Tanya sesuatu..." autocomplete="off">
+                <button type="submit" id="chatSendBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13" />
+                        <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+
+        <button id="chatToggleBtn" class="chat-toggle-btn" onclick="toggleChat()">
+            <svg id="chatIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            <svg id="chatCloseIcon" class="hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
