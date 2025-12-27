@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// User model for authentication and profile
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String    // Hashed password
+  name          String
+  role          String    @default("USER") // USER, CONTRIBUTOR, ADMIN
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations
+  contributions KnowledgeContent[] @relation("AuthorContent")
+  reviewedContent KnowledgeContent[] @relation("ReviewerContent")
+  chatSessions  ChatSession[]
+}
+
+// Knowledge Base content (Articles, Journals, News)
+model KnowledgeContent {
+  id          String        @id @default(uuid())
+  title       String
+  summary     String
+  content     String        // Full text content
+  type        String        // ARTICLE, NEWS, PDF, JOURNAL
+  category    String
+  pdfFilename String?       // Optional for PDF imports
+  pageCount   Int?          // Optional for PDF imports
+  status      String        @default("PENDING") // PENDING, APPROVED, REJECTED
+  
+  // Relations
+  authorId    String
+  author      User          @relation("AuthorContent", fields: [authorId], references: [id])
+  
+  // Approval workflow
+  reviewedBy  String?
+  reviewer    User?         @relation("ReviewerContent", fields: [reviewedBy], references: [id])
+  reviewedAt  DateTime?
+  feedback    String?
+  
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+// Chat Session
+model ChatSession {
+  id        String    @id @default(uuid())
+  userId    String?   // Optional: allow guest chats or track registered users
+  user      User?     @relation(fields: [userId], references: [id])
+  title     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  
+  // Relations
+  messages  ChatMessage[]
+}
+
+// Individual Chat Messages
+model ChatMessage {
+  id        String      @id @default(uuid())
+  sessionId String
+  session   ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  role      String      // "user" or "assistant"
+  content   String
+  createdAt DateTime    @default(now())
+}
